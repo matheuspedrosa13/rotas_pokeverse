@@ -55,6 +55,7 @@ class UserService:
             return dto.__dict__
 
 #só pro commite
+#só pra commit 2
     @classmethod
     def sign_in(cls, name, email, password, gender):
         message = []
