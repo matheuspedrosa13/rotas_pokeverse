@@ -1,10 +1,7 @@
-<<<<<<< HEAD
 from pydantic import BaseModel, validator
 from src.domain.enums.places_names.enum import LocalName
 from src.domain.enums.gender_options.enum import GenderOptions
-=======
 from pydantic import BaseModel
->>>>>>> 27c10acf01476f4b78fbb69ed015dc78d3ca4ce4
 
 
 class UserModel(BaseModel):
@@ -15,7 +12,6 @@ class UserModel(BaseModel):
     pokemon: list
     items: list
     money: int
-<<<<<<< HEAD
     place: str
 
     @validator('place')
@@ -33,6 +29,3 @@ class UserModel(BaseModel):
             return value
 
         raise TypeError(f"Invalid item name! Received {value}, try one of {gender_options}")
-=======
-    place: int
->>>>>>> 27c10acf01476f4b78fbb69ed015dc78d3ca4ce4

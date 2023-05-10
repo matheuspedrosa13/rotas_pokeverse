@@ -1,6 +1,5 @@
 from src.domain.models.items.model import ItemModel
 from src.infraestructures.mongodb.infraestructure import MongoDBInfra
-<<<<<<< HEAD
 from src.domain.models.user.model import UserModel
 
 
@@ -27,7 +26,8 @@ class UserRepo:
         if self.collection.find_one({"email": info['email']}):
             return [{"Erro": "Email em uso"}]
         else:
-            if UserModel(**info):
+            user = UserModel(**info)
+            if user:
                 self.collection.insert_one(info.copy())
                 return [info]
             else:
@@ -54,9 +54,6 @@ class UserRepo:
             return [{"Usuario logado": user}]
         else:
             return [{"Erro": "Credenciais invalidas"}]
-
-
-=======
 
 
 class UsersRepository:
@@ -107,5 +104,4 @@ class UsersRepository:
             return [user_updated]
         else:
             return [{"Status": "Sem saldo amigão"}]
->>>>>>> 27c10acf01476f4b78fbb69ed015dc78d3ca4ce4
 

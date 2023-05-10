@@ -71,7 +71,7 @@ class UserService:
             "place": "bras"
         }
         try:
-            message = (cls.user_repository.insert(infos))
+            message = cls.user_repository.insert(infos)
             code = ResponseCode.OK.value
         except Exception as error:
             print(f"Deu pau")
