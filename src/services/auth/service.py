@@ -8,7 +8,7 @@ class AuthService:
     @classmethod
     async def treat_poke_response(cls, jwt: dict) -> bool:
         # overall_response = cls.make_request(cls.__url, headers=jwt)
-        return False
+        return True
 
     @classmethod
     async def authorize_jwt(cls, jwt: dict) -> bool:

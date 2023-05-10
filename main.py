@@ -6,6 +6,8 @@ from src.services.router.service import RouterService
 from src.services.auth.service import AuthService
 
 import src.routes.store.route
+import src.routes.pokemon.route
+import src.routes.user.route
 router = RouterService.get_router()
 app = FastAPI(title="Pokemon")
 

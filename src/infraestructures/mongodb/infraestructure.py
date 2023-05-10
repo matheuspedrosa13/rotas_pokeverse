@@ -1,12 +1,12 @@
 import pymongo
-
-
+# Project
+from src.utils.env_config.util import config
 class MongoDBInfra:
 
     __client = None
-    __user = "Contas"                       # TODO pegar da env
-    __password = "Ma65451884"               # TODO pegar da env
-    __url = "cluster0.ls20ooj.mongodb.net"  # TODO pegar da env
+    __user = config("MONGO_USER")
+    __password = config("MONGO_PASSWORD")
+    __url = config("MONGO_URL")
 
     @classmethod
     def get_client(cls):
