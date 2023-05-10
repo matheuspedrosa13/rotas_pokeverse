@@ -54,6 +54,7 @@ class UserService:
             dto = ListStoreItemsDto(message=message, code=code)
             return dto.__dict__
 
+#só pro commite
     @classmethod
     def sign_in(cls, name, email, password, gender):
         message = []
