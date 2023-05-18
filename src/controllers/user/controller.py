@@ -32,7 +32,10 @@ class UserController:
     def delete_trainer(cls, email: str):
         return cls.user_service.delete_trainer(email)
 
-
     @classmethod
     def sign_up(cls, email: str, password: str):
         return cls.user_service.login(email, password)
+
+    @classmethod
+    def show_all_items(cls, email: str):
+        return cls.user_service.show_all_items(email)
