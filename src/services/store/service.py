@@ -35,12 +35,12 @@ class StoreService:
             return dto.__dict__
 
     @classmethod
-    def buy_item_from_store(cls, user_name, item_name):
+    def buy_item_from_store(cls, user_name, item_name, quantity):
         message = []
         code = ResponseCode.NOK.value
         try:
             item = cls.item_repository.list_one_item(item_name)
-            message = cls.user_repository.buy_item_from_store(user_name, item[0])
+            message = cls.user_repository.buy_item_from_store(user_name, item[0], quantity)
             code = ResponseCode.OK.value
         except Exception as error:
             print(f"Deu pau")

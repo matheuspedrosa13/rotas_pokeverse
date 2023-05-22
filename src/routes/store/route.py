@@ -18,9 +18,8 @@ app = RouterService.get_router()
 async def list_store_items(access_token: str = Header(...)):
     return StoreController.list_store_items()
 @app.put("/buy_item_from_store", tags=["store"])
-async def buy_item_from_store(user_name, item_name, access_token: str = Header(...)):
-    print("entrou rota")
-    return StoreController.buy_item_from_store(user_name, item_name)
+async def buy_item_from_store(user_name: str, item_name: str, quantity: int, access_token: str = Header(...)):
+    return StoreController.buy_item_from_store(user_name, item_name, quantity)
 
 
 # /list-places

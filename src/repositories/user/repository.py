@@ -60,35 +60,36 @@ class UsersRepository:
 
     def __init__(self):
         self.client = MongoDBInfra.get_client()
-        self.database = self.client.get_database("user_microservice")
-        self.collection = self.database.get_collection("users")
+        self.database = self.client.get_database("Trainers")
+        self.collection = self.database.get_collection("registered trainers")
         self.base_projection = {"_id": 0}
 
         # self.collection_users = self.data_base.get_collection("user")
 
-    def buy_item_from_store(self, user_name, item):
-        query_find_user = {"name": user_name}
+    def buy_item_from_store(self, user_name, item, quantity):
+        query_find_user = {"email": user_name}
         user__cur = self.collection.find(query_find_user, {"_id": 0})
+
         user = [users for users in user__cur][0]
 
         items_of_user = list(user["items"])
 
-        if (user["money"] - item["price"]) > 0:
+        if (user["money"] - item["price"]) > 1 * quantity:
             if not items_of_user:
-                items_of_user.append([item['name'], 1])
+                items_of_user.append([item['name'], quantity])
             else:
                 not_in_items = True
                 for items in items_of_user:
                     if item['name'] in items:
-                        items[1] = items[1] + 1
+                        items[1] = items[1] + quantity
                         not_in_items = False
                 if not_in_items:
-                    items_of_user.append([item['name'], 1])
+                    items_of_user.append([item['name'], quantity])
 
             self.collection.update_one(query_find_user,
                                        {"$set":
                                            {
-                                               "money": (user["money"] - item["price"])
+                                               "money": (user["money"] - item["price"] * quantity)
                                            }
                                        })
 
