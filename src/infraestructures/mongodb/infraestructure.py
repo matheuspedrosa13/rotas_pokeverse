@@ -1,8 +1,9 @@
 import pymongo
 # Project
 from src.utils.env_config.util import config
-class MongoDBInfra:
 
+
+class MongoDBInfra:
     __client = None
     __user = config("MONGO_USER")
     __password = config("MONGO_PASSWORD")

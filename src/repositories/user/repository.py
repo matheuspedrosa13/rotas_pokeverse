@@ -74,7 +74,7 @@ class UsersRepository:
 
         items_of_user = list(user["items"])
 
-        if (user["money"] - item["price"]) > 1 * quantity:
+        if (user["money"] - item["price"] * quantity) > 0:
             if not items_of_user:
                 items_of_user.append([item['name'], quantity])
             else:

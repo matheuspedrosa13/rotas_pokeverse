@@ -67,7 +67,17 @@ class UserService:
             "password": password,
             "gender": gender,
             "pokemon": [],
-            "items": [],
+            "items": [
+                ['pokeball', 0],
+                ['greatball', 0],
+                ['ultraball', 0],
+                ['banana', 0],
+                ['abacaxi', 0],
+                ['uva', 0],
+                ['banana upgrade', 0],
+                ['abacaxi upgrade', 0],
+                ['uva upgrade', 0]
+            ],
             "money": 0,
             "place": "bras"
         }
