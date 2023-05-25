@@ -74,9 +74,9 @@ class UserService:
                 ['banana', 0],
                 ['abacaxi', 0],
                 ['uva', 0],
-                ['banana upgrade', 0],
-                ['abacaxi upgrade', 0],
-                ['uva upgrade', 0]
+                ['upgraded_banana', 0],
+                ['upgraded_abacaxi', 0],
+                ['upgraded_uva', 0]
             ],
             "money": 0,
             "place": "bras"
