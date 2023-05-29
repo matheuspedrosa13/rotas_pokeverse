@@ -24,3 +24,7 @@ async def capture_pokemon(name_poke: str, nickname: str, owner_email: str, name_
 @app.get("/search_all_captured_pokemons", tags=["Pokemon"])
 async def search_pokemon_caught(owner_id: str):
     return PokeController.search_poke_caught(owner_id)
+
+@app.get("/select_random_pokemon", tags=["Pokemon"])
+async def search_pokemon_caught():
+    return PokeController.select_random_pokemon()

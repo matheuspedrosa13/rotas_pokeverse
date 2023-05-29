@@ -67,3 +67,17 @@ class PokeService:
         finally:
             dto = ListStoreItemsDto(message=message, code=code)
             return dto.__dict__
+
+    @classmethod
+    def select_random_pokemon(cls):
+        message = []
+        code = ResponseCode.NOK.value
+        try:
+            message = cls.repository.random_pokemon()
+            code = ResponseCode.OK.value
+        except Exception as error:
+            print(f"Deu pau")
+            print(f"{error=}")
+        finally:
+            dto = ListStoreItemsDto(message=message, code=code)
+            return dto.__dict__

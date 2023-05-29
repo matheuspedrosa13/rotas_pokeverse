@@ -19,3 +19,7 @@ class PokeController:
     @classmethod
     def search_poke_caught(cls, owner_id: str):
         return cls.poke_service.search_poke_caught(owner_id)
+
+    @classmethod
+    def select_random_pokemon(cls):
+        return cls.poke_service.select_random_pokemon()

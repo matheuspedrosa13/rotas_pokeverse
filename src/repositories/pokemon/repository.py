@@ -121,6 +121,10 @@ class PokeRepo:
         else:
             return False
 
+    def random_pokemon(self):
+        pokemon = PokeapiInfra.get(f"/{random.randint(1, 1010)}").json()
+        return [pokemon]
+
     def calculate_chance_capture(self, pokeball, experience_pokemon, fruit):
         strength_pokeball = self.calculate_strength_pokeball(pokeball)
         strength_fruit = self.calculate_strength_fruit(fruit)
