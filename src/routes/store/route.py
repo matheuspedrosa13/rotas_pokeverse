@@ -14,10 +14,10 @@ app = RouterService.get_router()
 # get-store-current-money
 # get-store-current-place
 
-@app.get("/list_store_items", tags=["store"])
+@app.get("/list_store_items", tags=["Store"])
 async def list_store_items(access_token: str = Header(...)):
     return StoreController.list_store_items()
-@app.put("/buy_item_from_store", tags=["store"])
+@app.put("/buy_item_from_store", tags=["Store"])
 async def buy_item_from_store(user_name: str, item_name: str, quantity: int, access_token: str = Header(...)):
     return StoreController.buy_item_from_store(user_name, item_name, quantity)
 

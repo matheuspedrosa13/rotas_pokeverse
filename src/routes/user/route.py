@@ -43,3 +43,6 @@ async def find_trainer_with_query(field: str, value, access_token: str = Header(
 @app.get("/find_trainer_field", tags=["User"])
 async def find_trainer_field(field: str, access_token: str = Header(...)):
     return UserController.find_trainer_field(field)
+
+# TODO ADICIONAR AUTH E MIDDLE / PEDROSA
+# TODO ADICIONAR TODAS AS ROTAS( CAPTURAR(3) / CHANGE_PLACE(1) ) / BARBA

@@ -11,7 +11,7 @@ class PokeapiInfra:
         return cls.__url
 
     @classmethod
-    def get(cls, id: int):
+    def get(cls, id: str):
         url = cls.get_url() + f"{id}"
         return requests.get(url, verify=False)
 

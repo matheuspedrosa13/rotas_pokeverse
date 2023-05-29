@@ -75,16 +75,9 @@ class UsersRepository:
         items_of_user = list(user["items"])
 
         if (user["money"] - item["price"] * quantity) > 0:
-            if not items_of_user:
-                items_of_user.append([item['name'], quantity])
-            else:
-                not_in_items = True
-                for items in items_of_user:
-                    if item['name'] in items:
-                        items[1] = items[1] + quantity
-                        not_in_items = False
-                if not_in_items:
-                    items_of_user.append([item['name'], quantity])
+            for items in items_of_user:
+                if item['name'] in items:
+                    items[1] = items[1] + quantity
 
             self.collection.update_one(query_find_user,
                                        {"$set":

@@ -5,8 +5,8 @@ from src.infraestructures.mongodb.infraestructure import MongoDBInfra
 class ItemsRepository:
     def __init__(self):
         self.client = MongoDBInfra.get_client()
-        self.database = self.client.get_database("user_microservice")
-        self.collection = self.database.get_collection("items")
+        self.database = self.client.get_database("Trainers")
+        self.collection = self.database.get_collection("store")
         self.base_projection = {"_id": 0}
 
         # self.collection_users = self.data_base.get_collection("user")
