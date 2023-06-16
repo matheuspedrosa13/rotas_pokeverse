@@ -22,8 +22,8 @@ class StoreService:
             message = cls.item_repository.list_all_items()
             code = ResponseCode.OK.value
         except Exception as error:
-            print(f"Deu pau")
-            print(f"{error=}")
+            print("Deu pau")
+            print(f"error = {error}")
         finally:
             dto = ListStoreItemsDto(message=message, code=code)
             return dto.__dict__
@@ -37,8 +37,8 @@ class StoreService:
             message = cls.user_repository.buy_item_from_store(user_name, item[0], quantity)
             code = ResponseCode.OK.value
         except Exception as error:
-            print(f"Deu pau")
-            print(f"{error=}")
+            print("Deu pau")
+            print(f"error = {error}")
         finally:
             dto = ListStoreItemsDto(message=message, code=code)
             # print("Problema no Retorno")
