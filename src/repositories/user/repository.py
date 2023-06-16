@@ -1,5 +1,6 @@
 import requests
 import base64
+from typing import Union
 
 from src.domain.enums.places_names.enum import LocalName
 from src.domain.models.items.model import ItemModel
@@ -29,7 +30,7 @@ class UserRepo:
         else:
             return [{"Status": "Usuário não encontrado"}]
 
-    def find(self, query: dict, projection: dict | None = None):
+    def find(self, query: dict, projection: Union[dict, None] = None):
         if projection is None:
             projection = self.base_projection
         query = self.collection.find(query, projection)
