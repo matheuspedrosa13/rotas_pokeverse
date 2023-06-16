@@ -4,10 +4,12 @@ from uuid import uuid4
 import requests
 from src.infraestructures.mongodb.infraestructure import MongoDBInfra
 from src.infraestructures.pokeapi.infraestructure import PokeapiInfra
-from src.domain.models.pokeballs.model import PokeballModel
 from src.domain.enums.pokeball_name.enum import PokeballName
-from src.domain.models.fruits.model import FruitModel
+from src.domain.enums.places_names.enum import LocalName
+from src.domain.models.pokeballs.model import PokeballModel
 from src.domain.enums.fruit_name.enum import FruitName
+from src.domain.models.places.model import PlaceModel
+from src.domain.models.fruits.model import FruitModel
 
 
 class PokeRepo:
@@ -17,9 +19,8 @@ class PokeRepo:
         self.find = self.dbPokemons['wild pokemons']
         self.catch = self.dbPokemons['caught pokemons']
         self.cliente = self.dbPokemons['registered trainers']
-        self.caught = self.dbPokemons['caught pokemons']
 
-    def search_poke(self, id: int):
+    def search_poke(self, id: str):
         if self.find.find_one({'id': id}):
             info = self.find.find_one({'id': id}, {'_id': 0})
             print("banco")
@@ -43,9 +44,20 @@ class PokeRepo:
         return info
 
     def pag_poke(self, start_id, limit_page):
-        return [PokeapiInfra.get(f"?offset={start_id}&limit={limit_page}").json()]
+        return [PokeapiInfra.get(f"?offset={start_id}&limit=    {limit_page}").json()]
 
-    def capture_poke(self, name_poke, nickname, owner_email, name_pokeball, experience, name_fruit, item_pokeball,
+    def change_nickname(self, nickname, owner_email):
+        owner_email = owner_email.split(".")[0]
+        owner = self.catch.find_one({"owner_email": owner_email})
+        if owner:
+            last_item = owner["pokemon_list"][-1]
+            last_item['nickname'] = nickname
+            self.catch.replace_one({"_id": owner["_id"]}, owner)
+            return [{"status": True}]
+        else:
+            return [{"status": "Usuário não encontrado"}]
+
+    def capture_poke(self, name_poke, owner_email, name_pokeball, experience, name_fruit, item_pokeball,
                      item_fruit):
         strengh_pokeball = ''
         strengh_fruit = ''
@@ -58,8 +70,6 @@ class PokeRepo:
                 strengh_fruit = fruits
 
         chance_capture = self.calculate_chance_capture(strengh_pokeball, experience, strengh_fruit)
-
-
         have_items = self.remove_item(owner_email, item_pokeball, item_fruit)
         if have_items != 1:
             return [{'status': 'sem items'}]
@@ -67,15 +77,15 @@ class PokeRepo:
         if random.uniform(0, 100) <= chance_capture:
             unique_id = str(uuid4())
             pokemon = PokeapiInfra().get(f"/{name_poke}").json()
-
+            types = [item['type']['name'] for item in pokemon['types']]
             owner_email = owner_email.split(".")[0]
             if self.catch.find_one({"owner_email": owner_email}):
                 new_owner = {
                     "name": pokemon['name'],
-                    "nickname": nickname,
+                    "nickname": "",
                     "id": pokemon["id"],
-                    "type": "",
-                    "speed": "",
+                    "type": types,
+                    "speed": pokemon['stats'][5]['base_stat'],
                     "experience": pokemon["base_experience"],
                     "image_front": pokemon["sprites"]["front_default"],
                     "image_back": pokemon["sprites"]["front_default"],
@@ -84,18 +94,18 @@ class PokeRepo:
 
                 self.catch.update_one(
                     {"owner_email": owner_email},
-                    {"$push": {owner_email: new_owner}}
+                    {"$push": {"pokemon_list": new_owner}}
                 )
             else:
                 new_pokemon = {
                     "owner_email": owner_email,
-                    owner_email: [
+                    "pokemon_list": [
                         {
                             "name": pokemon['name'],
-                            "nickname": nickname,
+                            "nickname": "",
                             "id": pokemon["id"],
-                            "type": "",
-                            "speed": "",
+                            "types": types,
+                            "speed": pokemon['stats'][5]['base_stat'],
                             "experience": pokemon["base_experience"],
                             "image_front": pokemon["sprites"]["front_default"],
                             "image_back": pokemon["sprites"]["front_default"],
@@ -111,19 +121,38 @@ class PokeRepo:
 
     def search_poke_caught(self, owner_email):
         owner_email = owner_email.split(".")[0]
-        if self.caught.find_one({"owner_email": owner_email}):
-            dictionarys = (self.caught.find_one({"owner_email": owner_email}, {'owner_email': 0, '_id': 0}))[owner_email]
+        if self.catch.find_one({"owner_email": owner_email}):
+            dictionarys = (self.catch.find_one({"owner_email": owner_email}, {'owner_email': 0, '_id': 0}))[
+                "pokemon_list"]
             all_dictionarys = {}
             for i, dictionary in enumerate(dictionarys):
-                print("a")
                 all_dictionarys[i] = dictionary
             return [all_dictionarys]
         else:
             return False
 
-    def random_pokemon(self):
-        pokemon = PokeapiInfra.get(f"/{random.randint(1, 1010)}").json()
-        return [pokemon]
+    def random_pokemon(self, email):
+        while(True):
+            pokemon = PokeapiInfra.get(f"/{random.randint(1, 1010)}").json()
+            types = [item['type']['name'] for item in pokemon['types']]
+            locate_trainer = self.cliente.find_one({"email": email}, {"_id": 0, "place": 1})['place']
+            locate_type = ""
+            for locate in LocalName:
+                if locate.value == locate_trainer:
+                    locate_trainer = locate
+                    locate_type = PlaceModel().place_map.get(locate_trainer)
+
+            if locate_type in types:
+                pokemon = {
+                    "name": pokemon['name'],
+                    "id": pokemon["id"],
+                    "types": pokemon['types'],
+                    "speed": pokemon['stats'][5]['base_stat'],
+                    "experience": pokemon["base_experience"],
+                    "image_front": pokemon["sprites"]["front_default"],
+                    "image_back": pokemon["sprites"]["front_default"],
+                }
+                return [pokemon]
 
     def calculate_chance_capture(self, pokeball, experience_pokemon, fruit):
         strength_pokeball = self.calculate_strength_pokeball(pokeball)
@@ -142,6 +171,7 @@ class PokeRepo:
 
     def calculate_strength_fruit(self, fruit):
         fruit_value = FruitModel().fruit_map.get(fruit)
+        print(fruit_value)
         return fruit_value
 
     def calculate_difficulty(self, experience_pokemon):
@@ -189,4 +219,3 @@ class PokeRepo:
                                 }
                                 )
         return 1
-

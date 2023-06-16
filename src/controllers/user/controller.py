@@ -5,6 +5,10 @@ class UserController:
     user_service = UserService()
 
     @classmethod
+    def change_place(cls, email, place):
+        return cls.user_service.change_place(email, place)
+
+    @classmethod
     def find_all_trainers(cls):
         return cls.user_service.find_all_trainers()
 

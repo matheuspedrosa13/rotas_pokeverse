@@ -1,57 +1,68 @@
-import uvicorn
-from fastapi import FastAPI, Request
 from fastapi.responses import UJSONResponse
-from fastapi.middleware.cors import CORSMiddleware
 from src.services.router.service import RouterService
-from src.services.auth.service import AuthService
+import uvicorn
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from starlette.requests import Request
+import requests
+from starlette.responses import PlainTextResponse
+from starlette.status import HTTP_403_FORBIDDEN
+
+app = FastAPI(title='pokemon')
+
+
+# Middleware to intercept incoming requests
+@app.middleware("http")
+async def inteceptacao(request: Request, call_next):
+    if "/docs" in request.url.path or "/openapi.json" in request.url.path:
+        response = await call_next(request)
+        return response
+
+    jwt = request.headers.get("token-jwt")
+    rota = str(request.url.path).replace("/", "")
+
+    print(f"Requested route: {request.url.path}")
+
+    if rota == "login" or rota == 'sign_in' or rota == 'select_random_pokemon':
+        response = await call_next(request)
+        return response
+
+    else:
+        # Call next middleware or route handler
+        response = requests.get(f'http://localhost:9999/confirm_jwt?jwt={jwt}&rota={rota}')
+        print(jwt)
+
+        print(rota)
+        print(response.json())
+        if response.json():
+            response = await call_next(request)
+            return response
+
+        return PlainTextResponse("Não tem permissão", status_code=HTTP_403_FORBIDDEN)
+
 
 import src.routes.store.route
 import src.routes.pokemon.route
 import src.routes.user.route
+
 router = RouterService.get_router()
-app = FastAPI(title="Pokemon")
 
-origins = [
-    "http://localhost.tiangolo.com",
-    "https://localhost.tiangolo.com",
-    "http://localhost",
-    "http://localhost:8000",
-]
+app.include_router(router)
 
-app.include_router(
-    router
-)
+# origins = [
+#     "http://localhost.tiangolo.com",
+#     "https://localhost.tiangolo.com",
+#     "http://localhost",
+#     "http://localhost:8000",
+# ]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-
-@app.middleware("http")
-async def add_token_validation(request: Request, call_next):
-    url: str = request.url.path
-    if url.find("/docs") != -1 or url.find("/openapi") != -1:
-        response = await call_next(request)
-        return response
-
-    access_token = None
-    headers: list[tuple, ...] = request.headers.items()
-    for key, value in headers:
-        if key == "access-token":
-            access_token = value
-            break
-    authorized = await AuthService.authorize_jwt(access_token)
-    if authorized:
-        response = await call_next(request)
-        return response
-
-    return UJSONResponse({
-        "message": "Not authorized!",
-        "code": 0
-    })
 
 if __name__ == "__main__":
     port = 8000

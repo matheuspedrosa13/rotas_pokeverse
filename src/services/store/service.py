@@ -2,23 +2,17 @@ from src.domain.dtos.list_store_items.dto import ListStoreItemsDto
 from src.domain.enums.response_code.enum import ResponseCode
 from src.repositories.store.repository import ItemsRepository
 from src.repositories.user.repository import UsersRepository
-from src.services.auth.service import AuthService
 
 
 class StoreService:
     user_repository = UsersRepository()
     item_repository = ItemsRepository()
-    auth_service = AuthService
+
 
     # list store pokemon
     # list store items
     # get-store-current-money
     # get-store-current-place
-
-    @classmethod
-    async def authorize(cls, jwt) -> bool:
-        authorized = await cls.auth_service.authorize_jwt(jwt)
-        return authorized
 
     @classmethod
     def list_store_items(cls):

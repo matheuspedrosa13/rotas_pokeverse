@@ -9,7 +9,6 @@ class UserModel(BaseModel):
     email: str
     password: str
     gender: str
-    pokemon: list
     items: list
     money: int
     place: str

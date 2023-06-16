@@ -1,17 +1,16 @@
+import requests
+
 from src.domain.dtos.list_store_items.dto import ListStoreItemsDto
 from src.domain.enums.response_code.enum import ResponseCode
 from src.repositories.user.repository import UserRepo
-from src.services.auth.service import AuthService
 
 
 class UserService:
     user_repository = UserRepo()
-    auth_service = AuthService
 
     @classmethod
-    async def authorize(cls, jwt) -> bool:
-        authorized = await cls.auth_service.authorize_jwt(jwt)
-        return authorized
+    def change_place(cls, email, place):
+        return cls.user_repository.change_place(email, place)
 
     @classmethod
     def find_all_trainers(cls):
@@ -33,6 +32,7 @@ class UserService:
         code = ResponseCode.NOK.value
         try:
             message = cls.user_repository.find({field: value})
+            print(message)
             code = ResponseCode.OK.value
         except Exception as error:
             print(f"Deu pau")
@@ -57,14 +57,16 @@ class UserService:
 
     @classmethod
     def sign_in(cls, name, email, password, gender):
+        print(password)
         message = []
         code = ResponseCode.NOK.value
+        password_encrypted_response = requests.get(f'http://localhost:9999/encrypted?password={password}')
+        password_encrypted = password_encrypted_response.text.strip('"')
         infos = {
             "name": name,
             "email": email,
-            "password": password,
+            "password": password_encrypted,
             "gender": gender,
-            "pokemon": [],
             "items": [
                 ['pokeball', 0],
                 ['greatball', 0],
@@ -79,14 +81,22 @@ class UserService:
             "money": 0,
             "place": "bras"
         }
+
+        # password_decrypted_response = requests.get(f'http://localhost:9999/descrypting?password={password_encrypted}')
+        # password_decrypted = password_decrypted_response.text.strip('()').strip('"')
+        # jwt_token_response = requests.get(
+        #     f'http://localhost:9999/create_jwt?pass_cripto={password_decrypted}&password={password}&email={email}')
+        # jwt_token = jwt_token_response.text
+
         try:
+            print("aaaaaaaaaaa")
             message = cls.user_repository.insert(infos)
             code = ResponseCode.OK.value
         except Exception as error:
-            print(f"Deu pau")
-            print(f"{error=}")
+            print("Deu pau")
+            print(f"error: {error}")
+
         finally:
-            print(message)
             dto = ListStoreItemsDto(message=message, code=code)
             return dto.__dict__
 
@@ -122,9 +132,22 @@ class UserService:
     @classmethod
     def login(cls, email, password):
         message = []
+
         code = ResponseCode.NOK.value
+
+        password_encrypted_response = requests.get(f'http://localhost:9999/encrypted?password={password}').text
+
+        password_decrypted_response = requests.get(
+            f'http://localhost:9999/descrypting?password={password_encrypted_response}').text
+
+        password_decrypted = password_decrypted_response.strip(')').strip('"').strip(')')
+
+        jwt_token_response = requests.get(
+            f'http://localhost:9999/create_jwt?pass_cripto={password_decrypted}&password={password}&email={email}')
+        jwt_token = jwt_token_response.text
+
         try:
-            message = cls.user_repository.login(email, password)
+            message = cls.user_repository.login(email, password_encrypted_response, jwt_token)
             code = ResponseCode.OK.value
         except Exception as error:
             print(f"Deu pau")
@@ -146,3 +169,7 @@ class UserService:
         finally:
             dto = ListStoreItemsDto(message=message, code=code)
             return dto.__dict__
+
+
+# TODO trocar localHost para auth
+# UserService().find_trainer_with_query("email", "guizz@gmail.com")

@@ -21,3 +21,4 @@ class LocalName(Enum):
     MOGI = "mogi"
     CONSOLACAO = "consolacao"
     PIQUERI = "piqueri"
+    JARAGUA = "jaragua"

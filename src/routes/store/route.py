@@ -5,7 +5,6 @@ from fastapi import Header
 from src.controllers.store.controller import StoreController
 from src.services.router.service import RouterService
 
-
 app = RouterService.get_router()
 
 
@@ -15,12 +14,13 @@ app = RouterService.get_router()
 # get-store-current-place
 
 @app.get("/list_store_items", tags=["Store"])
-async def list_store_items(access_token: str = Header(...)):
+async def list_store_items(token_jwt: str = Header(...)):
     return StoreController.list_store_items()
-@app.put("/buy_item_from_store", tags=["Store"])
-async def buy_item_from_store(user_name: str, item_name: str, quantity: int, access_token: str = Header(...)):
-    return StoreController.buy_item_from_store(user_name, item_name, quantity)
 
+
+@app.put("/buy_item_from_store", tags=["Store"])
+async def buy_item_from_store(user_name: str, item_name: str, quantity: int, token_jwt: str = Header(...)):
+    return StoreController.buy_item_from_store(user_name, item_name, quantity)
 
 # /list-places
 # /capture-pokemon
