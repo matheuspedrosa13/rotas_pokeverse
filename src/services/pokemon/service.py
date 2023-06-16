@@ -17,7 +17,7 @@ class PokeService:
             code = ResponseCode.OK.value
         except Exception as error:
             print(f"Deu pau")
-            print(f"{error=}")
+            print(f"erro = {error}")
         finally:
             dto = ListStoreItemsDto(message=message, code=code)
             return dto.__dict__
@@ -31,7 +31,7 @@ class PokeService:
             code = ResponseCode.OK.value
         except Exception as error:
             print(f"Deu pau")
-            print(f"{error=}")
+            print(f"erro = {error}")
         finally:
             dto = ListStoreItemsDto(message=message, code=code)
             return dto.__dict__
@@ -48,7 +48,7 @@ class PokeService:
             code = ResponseCode.OK.value
         except Exception as error:
             print(f"Deu pau")
-            print(f"{error=}")
+            print(f"erro = {error}")
         finally:
             dto = ListStoreItemsDto(message=message, code=code)
             return dto.__dict__
@@ -62,7 +62,7 @@ class PokeService:
             code = ResponseCode.OK.value
         except Exception as error:
             print(f"Deu pau")
-            print(f"{error=}")
+            print(f"erro = {error}")
         finally:
             dto = ListStoreItemsDto(message=message, code=code)
             return dto.__dict__
@@ -76,7 +76,7 @@ class PokeService:
             code = ResponseCode.OK.value
         except Exception as error:
             print(f"Deu pau")
-            print(f"{error=}")
+            print(f"erro = {error}")
         finally:
             dto = ListStoreItemsDto(message=message, code=code)
             return dto.__dict__
@@ -90,7 +90,7 @@ class PokeService:
             code = ResponseCode.OK.value
         except Exception as error:
             print(f"Deu pau")
-            print(f"{error=}")
+            print(f"erro = {error}")
         finally:
             dto = ListStoreItemsDto(message=message, code=code)
             return dto.__dict__
