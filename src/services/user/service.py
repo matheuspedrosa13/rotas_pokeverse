@@ -1,3 +1,5 @@
+from typing import Union
+
 import requests
 
 from src.domain.dtos.list_store_items.dto import ListStoreItemsDto
@@ -27,7 +29,7 @@ class UserService:
             return dto.__dict__
 
     @classmethod
-    def find_trainer_with_query(cls, field: str, value: str | int):
+    def find_trainer_with_query(cls, field: str, value: Union[str, int]):
         message = []
         code = ResponseCode.NOK.value
         try:
