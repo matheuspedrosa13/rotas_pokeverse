@@ -34,7 +34,7 @@ class UserRepo:
             projection = self.base_projection
         query = self.collection.find(query, projection)
         user = [i for i in query]
-        user[0]['password'] = (base64.b64encode(requests.get(f'http://localhost:9999/descrypting?password={user[0]["password"]}').text.replace('"', "").encode())).decode()
+        user[0]['password'] = (base64.b64encode(requests.get(f'https://auth-pokeverse.onrender.com/descrypting?password={user[0]["password"]}').text.replace('"', "").encode())).decode()
         return user
 
     def list_all_trainer(self):

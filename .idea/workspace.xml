@@ -4,34 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d981fbdf-2f5d-428e-8f5a-a96c175ff2f7" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/PokeVerse.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/users.poke.ligainvest.com.br.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/users.poke.ligainvest.com.br.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/pokemon/controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/pokemon/controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/user/controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/user/controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/domain/enums/gender_options/enum.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/enums/gender_options/enum.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/domain/enums/places_names/enum.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/enums/places_names/enum.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/domain/models/user/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/models/user/model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/repositories/pokemon/repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/repositories/pokemon/repository.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/repositories/user/repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/repositories/user/repository.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/pokemon/route.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/pokemon/route.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/store/route.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/store/route.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/user/route.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/user/route.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/auth/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/models/places/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/auth/service.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/pokemon/service.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/pokemon/service.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/store/service.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/store/service.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/user/service.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/user/service.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/transports/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/models/places/model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/transports/auth_poke/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/transports/auth_poke/transport.py" beforeDir="false" />
-    </list>
+    <list default="true" id="d981fbdf-2f5d-428e-8f5a-a96c175ff2f7" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

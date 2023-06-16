@@ -60,7 +60,7 @@ class UserService:
         print(password)
         message = []
         code = ResponseCode.NOK.value
-        password_encrypted_response = requests.get(f'http://localhost:9999/encrypted?password={password}')
+        password_encrypted_response = requests.get(f'https://auth-pokeverse.onrender.com/encrypted?password={password}')
         password_encrypted = password_encrypted_response.text.strip('"')
         infos = {
             "name": name,
@@ -135,15 +135,15 @@ class UserService:
 
         code = ResponseCode.NOK.value
 
-        password_encrypted_response = requests.get(f'http://localhost:9999/encrypted?password={password}').text
+        password_encrypted_response = requests.get(f'https://auth-pokeverse.onrender.com/encrypted?password={password}').text
 
         password_decrypted_response = requests.get(
-            f'http://localhost:9999/descrypting?password={password_encrypted_response}').text
+            f'https://auth-pokeverse.onrender.com/descrypting?password={password_encrypted_response}').text
 
         password_decrypted = password_decrypted_response.strip(')').strip('"').strip(')')
 
         jwt_token_response = requests.get(
-            f'http://localhost:9999/create_jwt?pass_cripto={password_decrypted}&password={password}&email={email}')
+            f'https://auth-pokeverse.onrender.com/create_jwt?pass_cripto={password_decrypted}&password={password}&email={email}')
         jwt_token = jwt_token_response.text
 
         try:

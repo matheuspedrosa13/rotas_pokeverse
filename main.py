@@ -29,7 +29,7 @@ async def inteceptacao(request: Request, call_next):
 
     else:
         # Call next middleware or route handler
-        response = requests.get(f'http://localhost:9999/confirm_jwt?jwt={jwt}&rota={rota}')
+        response = requests.get(f'https://auth-pokeverse.onrender.com/confirm_jwt?jwt={jwt}&rota={rota}')
         print(jwt)
 
         print(rota)
