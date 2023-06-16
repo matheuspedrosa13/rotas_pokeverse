@@ -1,3 +1,5 @@
+from typing import Union
+
 from src.services.user.service import UserService
 
 
@@ -17,7 +19,7 @@ class UserController:
         return cls.user_service.login(email, password)
 
     @classmethod
-    def find_trainer_with_query(cls, field: str, value: str | int):
+    def find_trainer_with_query(cls, field: str, value: Union[str, int]):
         return cls.user_service.find_trainer_with_query(field, value)
 
     @classmethod
@@ -29,7 +31,7 @@ class UserController:
         return cls.user_service.sign_in(name, email, password, gender)
 
     @classmethod
-    def alter_trainer(cls, email: str, field: str, value: str | int):
+    def alter_trainer(cls, email: str, field: str, value: Union[str, int]):
         return cls.user_service.alter_trainer(email, field, value)
 
     @classmethod
