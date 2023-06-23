@@ -88,7 +88,7 @@ class PokeRepo:
                     "speed": pokemon['stats'][5]['base_stat'],
                     "experience": pokemon["base_experience"],
                     "image_front": pokemon["sprites"]["front_default"],
-                    "image_back": pokemon["sprites"]["front_default"],
+                    "image_back": pokemon["sprites"]["back_default"],
                     "unique_id": unique_id
                 }
 
@@ -108,7 +108,7 @@ class PokeRepo:
                             "speed": pokemon['stats'][5]['base_stat'],
                             "experience": pokemon["base_experience"],
                             "image_front": pokemon["sprites"]["front_default"],
-                            "image_back": pokemon["sprites"]["front_default"],
+                            "image_back": pokemon["sprites"]["back_default"],
                             "unique_id": unique_id
                         }
                     ]
